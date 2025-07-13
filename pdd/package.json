@@ -1,0 +1,43 @@
+{
+   "name": "pdd",
+   "version": "1.0.0",
+   "main": "dist-electron/main.js",
+   "scripts": {
+      "dev": "concurrently -k \"npm:dev:renderer\" \"npm:dev:electron\"",
+      "dev:renderer": "vite",
+      "dev:electron": "wait-on http://localhost:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 npm run start:electron",
+      "start:electron": "tsc -p tsconfig.electron.json && nodemon",
+      "build:electron": "tsc -p tsconfig.electron.json",
+      "build:electron:watch": "tsc -p tsconfig.electron.json --watch",
+      "build": "vite build && npm run build:electron",
+      "dist": "npm run build && electron-builder --config.directories.output=../release",
+      "zip": "vite build && powershell -ExecutionPolicy Bypass -File zip-dist.ps1"
+   },
+   "build": {
+      "appId": "github.fragmentb.pdd",
+      "productName": "PreactDungeonDelve",
+      "files": [
+         "dist/**/*",
+         "dist-electron/**/*"
+      ],
+      "directories": {
+         "output": "../release"
+      }
+   },
+   "dependencies": {
+      "@preact/signals": "^2.2.1",
+      "preact": "^10.26.9"
+   },
+   "devDependencies": {
+      "@preact/preset-vite": "^2.10.2",
+      "@types/node": "^24.0.13",
+      "concurrently": "^9.2.0",
+      "cross-env": "^7.0.3",
+      "electron": "^37.2.1",
+      "electron-builder": "^26.0.12",
+      "nodemon": "^3.1.10",
+      "typescript": "~5.8.3",
+      "vite": "^7.0.4",
+      "wait-on": "^8.0.3"
+   }
+}
