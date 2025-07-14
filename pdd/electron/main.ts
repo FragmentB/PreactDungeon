@@ -1,14 +1,19 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'node:path';
 
 function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
+    frame:false,
+
     webPreferences: {
-      contextIsolation: true
+      contextIsolation: true,
+      preload: path.resolve(__dirname, '../dist-electron/preload.js')
     }
   });
+
+  win.setMenu(null);
 
   const isDev = !!process.env.VITE_DEV_SERVER_URL;
 
@@ -22,6 +27,10 @@ function createWindow() {
 }
 
 app.whenReady().then(createWindow);
+
+ipcMain.on('app:quit', () => {
+  app.quit();
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
