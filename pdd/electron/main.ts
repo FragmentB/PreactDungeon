@@ -4,9 +4,9 @@ import path from 'node:path';
 function createWindow() {
   const win = new BrowserWindow({
     width: 800,
-    height: 600,
-    frame:false,
-
+    height: 640,
+    //frame:false,
+    resizable:false,
     webPreferences: {
       contextIsolation: true,
       preload: path.resolve(__dirname, '../dist-electron/preload.js')

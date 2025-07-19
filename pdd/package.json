@@ -26,7 +26,8 @@
    },
    "dependencies": {
       "@preact/signals": "^2.2.1",
-      "preact": "^10.26.9"
+      "preact": "^10.26.9",
+      "preact-iso": "^2.9.2"
    },
    "devDependencies": {
       "@preact/preset-vite": "^2.10.2",

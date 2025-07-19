@@ -1,42 +1,26 @@
-import { useEffect, useRef } from 'preact/hooks'
 import './app.css'
-import { HUD } from './components/hud';
+import { LocationProvider, Router, Route } from 'preact-iso';
+import TownMenu from './scenes/town/townMenu';
 
 export function App() {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  useEffect(()=>{
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    let running = true;
-
-    function draw() {
-      if (!ctx) return;
-      if (!canvas) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Sample player rectangle
-      ctx.fillStyle = 'blue';
-      ctx.fillRect(50, 50, 32, 32);
-
-      if (running) requestAnimationFrame(draw);
-    };
-
-    draw();
-
-    return () => {
-      running = false;
-    };
-  }, []);
 
   return (
     <>
-      <div>
-       <h1>Preact Dungeon Delve</h1>
-       <HUD />
-        <canvas ref={canvasRef} width="800" height="450"/>
+      <div className="game-container">
+        <LocationProvider>
+          <Router>
+            
+            <Route path="/" component={TownMenu} />
+            <Route path="/town" component={TownMenu} />
+            <Route path="/guild" component={TownMenu} />
+            <Route path="/shop" component={TownMenu} />
+            <Route path="/home" component={TownMenu} />
+            <Route path="/save" component={TownMenu} />
+            <Route path="/load" component={TownMenu} />
+            <Route path="/dungeon" component={TownMenu} />
+            <Route path="/options" component={TownMenu} />
+          </Router>
+        </LocationProvider>
       </div>
     </>
   )
