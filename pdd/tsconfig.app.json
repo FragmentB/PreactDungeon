@@ -9,7 +9,10 @@
     "paths": {
       "react": ["./node_modules/preact/compat/"],
       "react-dom": ["./node_modules/preact/compat/"],
-       "@assets/*": ["./src/assets/*"]
+       "@assets/*": ["./src/assets/*"],
+       "@core/*": ["./src/core/*"],
+       "@utils/*": ["./src/utils/*"],
+       "@components/*": ["./src/components/*"]
     },
 
     /* Bundler mode */
